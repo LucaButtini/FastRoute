@@ -91,4 +91,7 @@ foreign key (codice_plico) references plichi(codice)
 );
 
 
+drop database fastroute;
+
+show tables;
 
