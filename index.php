@@ -12,10 +12,10 @@ require './Template/header.php';
             </div>
         </div>
 
-        <!-- Sezione Servizi con Accordion -->
-        <div class="row"> <!-- Ridotto da mt-5 a mt-3 -->
+
+        <div class="row">
             <div class="col-12">
-                <h2>I nostri Servizi</h2>
+                <h2><strong>I nostri Servizi</strong></h2>
                 <div class="accordion accordion-flush mt-3" id="accordionFlushExample">
 
                     <!-- Servizio 1: Gestione delle spedizioni -->
@@ -94,8 +94,9 @@ require './Template/header.php';
 
         <!-- Sezione Form di Contatto -->
         <div class="row mt-5">
-            <div class="col-12">
-                <h2>Richiedi Informazioni</h2>
+            <div class="col-12 mb-4">
+                <h2><strong>Richiedi Informazioni</strong></h2>
+                <p class="lead">Per rimanere aggiornato sui servizi offerti dalla nostra applicazione inserisci i dati.</p>
                 <form action="richiesta_info.php" method="post" class="w-50 mx-auto">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
