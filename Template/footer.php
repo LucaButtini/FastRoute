@@ -2,7 +2,7 @@
 ?>
 
 <footer>
-    <div class="bg-primary py-5 mt-5 text-center rounded-3">
+    <div class="bg-primary py-5 mt-5 text-center">
         <p class="display-6 mb-3 text-white">FASTROUTE MANAGEMENT</p>
         <small class="text-white-50">&copy; Buttini Luca 5-E. All rights reserved.</small>
     </div>
