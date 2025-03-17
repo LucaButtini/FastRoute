@@ -5,3 +5,7 @@
 }
 
 
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Colore di sfondo al passaggio del mouse */
+    color: #fff; /* Colore del testo al passaggio del mouse */
+}
