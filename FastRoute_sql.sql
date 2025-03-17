@@ -36,8 +36,10 @@ create table plichi(
 codice int primary key,
 id_email int, 
 stato varchar(50),
+codice_personale varchar(50),
 foreign key (id_email) references email_conferma(id),
-foreign key (stato) references stati(nome)
+foreign key (stato) references stati(nome),
+foreign key (codice_personale) references personale(codice_fiscale)
 );
 
 
@@ -69,7 +71,6 @@ cognome varchar(100)
 );
 
 
-
 -- consegne
 create table consegne(
 cliente varchar(50),
@@ -94,4 +95,3 @@ foreign key (codice_plico) references plichi(codice)
 drop database fastroute;
 
 show tables;
-
