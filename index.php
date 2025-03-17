@@ -22,7 +22,7 @@ require './Template/header.php';
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                📦 Gestione delle Spedizioni
+                                <i class="bi bi-box-seam me-2"></i> Gestione delle Spedizioni
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -36,7 +36,7 @@ require './Template/header.php';
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                🚛 Tracciamento dei Plichi
+                                <i class="bi bi-truck me-2"></i> Tracciamento dei Plichi
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -50,7 +50,7 @@ require './Template/header.php';
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                📊 Dashboard di Controllo
+                                <i class="bi bi-table me-2"></i> Dashboard di Controllo
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -64,7 +64,7 @@ require './Template/header.php';
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                🔍 Verifica Stato Plico
+                                <i class="bi bi-check-circle me-2"></i> Verifica Stato Plico
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -78,7 +78,7 @@ require './Template/header.php';
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                📅 Ricerca Consegne per Periodo
+                                <i class="bi bi-search me-2"></i> Ricerca Consegne per Periodo
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
