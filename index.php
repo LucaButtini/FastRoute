@@ -12,7 +12,6 @@ require './Template/header.php';
             </div>
         </div>
 
-
         <div class="row">
             <div class="col-12">
                 <h2><strong>I nostri Servizi</strong></h2>
@@ -26,7 +25,7 @@ require './Template/header.php';
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body fs-5 lh-lg text-muted">
                                 Gestisci facilmente le spedizioni dei tuoi plichi con il nostro sistema avanzato di tracciamento e registrazione.
                             </div>
                         </div>
@@ -40,7 +39,7 @@ require './Template/header.php';
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body fs-5 lh-lg text-muted">
                                 Monitora il percorso del tuo plico in tempo reale dal momento della consegna fino al ritiro da parte del destinatario.
                             </div>
                         </div>
@@ -54,7 +53,7 @@ require './Template/header.php';
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body fs-5 lh-lg text-muted">
                                 Accedi a una dashboard intuitiva per monitorare lo stato delle spedizioni e gestire tutte le operazioni in modo efficiente.
                             </div>
                         </div>
@@ -68,7 +67,7 @@ require './Template/header.php';
                             </button>
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body fs-5 lh-lg text-muted">
                                 Inserisci il codice del tuo plico e scopri immediatamente se è in partenza, in transito o consegnato.
                             </div>
                         </div>
@@ -82,7 +81,7 @@ require './Template/header.php';
                             </button>
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body fs-5 lh-lg text-muted">
                                 Controlla quante consegne sono state effettuate negli ultimi N giorni con statistiche dettagliate.
                             </div>
                         </div>

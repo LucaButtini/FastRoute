@@ -18,7 +18,7 @@ $page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><strong>FastRoute Management</strong></a>
+        <a class="navbar-brand" href="#"><strong>Trasporti FastRoute</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,7 +34,7 @@ $page = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
                     <a class="nav-link" href="#">Pricing</a>
                 </li>
             </ul>
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="Login/login.php">Login</a>
         </div>
     </div>
 </nav>
