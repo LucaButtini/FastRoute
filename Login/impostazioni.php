@@ -82,6 +82,10 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body style="background-color: <?= $bgColor ?>; color: <?= ($bgColor == 'black') ? '#fff' : '#000' ?>;">
+<!-- Bottone per tornare alla home -->
+<div class="text-start mb-4">
+    <a href="../index.php" class="btn btn-outline-primary">Torna alla Home</a>
+</div>
 <div class="container mt-5">
     <h1 class="text-center mb-4" style="color: <?= ($bgColor == 'black') ? 'red' : 'darkblue' ?>;">
         <strong>Cambia la tua Password</strong>
