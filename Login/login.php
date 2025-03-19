@@ -6,8 +6,15 @@ $conf = require __DIR__ . '/../Config/db_conf.php';
 $db = DbConnection::getDb($conf);
 
 // 🔍 Controlla se la tabella "personale" è vuota; se sì, inserisce gli utenti di default con password hashata
-$stmt = $db->query("SELECT COUNT(*) as count FROM personale");
-$countRow = $stmt->fetch(PDO::FETCH_OBJ);
+$query_count = "SELECT COUNT(*) as count FROM personale";
+try {
+    $stmt = $db->query($query_count);
+    $countRow = $stmt->fetch(PDO::FETCH_OBJ);
+    $stmt->closeCursor();
+} catch (PDOException $exception) {
+    logError($exception);
+    $error = "⚠️ Errore nel controllo della tabella.";
+}
 
 if ($countRow->count == 0) {
     $users = [
@@ -26,11 +33,17 @@ if ($countRow->count == 0) {
     // Hash della password "admin123"
     $password_hash = password_hash("admin123", PASSWORD_DEFAULT);
 
-    $stmtInsert = $db->prepare("INSERT INTO personale (codice_fiscale, nome, mail, password, sede) VALUES (?, ?, ?, ?, ?)");
-    foreach ($users as $user) {
-        $stmtInsert->execute([$user[0], $user[1], $user[2], $password_hash, $user[3]]);
+    $query_insert = "INSERT INTO personale (codice_fiscale, nome, mail, password, sede) VALUES (?, ?, ?, ?, ?)";
+    try {
+        $stmtInsert = $db->prepare($query_insert);
+        foreach ($users as $user) {
+            $stmtInsert->execute([$user[0], $user[1], $user[2], $password_hash, $user[3]]);
+        }
+        $stmtInsert->closeCursor();
+    } catch (PDOException $exception) {
+        logError($exception);
+        $error = "⚠️ Errore durante l'inserimento degli utenti di default.";
     }
-    //echo "✅ Utenti di default inseriti!<br>";
 }
 
 $error = "";
@@ -43,9 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $password = $_POST['password'];
 
     // Query per ottenere i dati dell'utente, usando fetch(PDO::FETCH_OBJ)
-    $stmt = $db->prepare("SELECT codice_fiscale, password, nome FROM personale WHERE mail = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_OBJ);
+    $query_user = "SELECT codice_fiscale, password, nome FROM personale WHERE mail = ?";
+    try {
+        $stmt = $db->prepare($query_user);
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $stmt->closeCursor();
+    } catch (PDOException $exception) {
+        logError($exception);
+        $error = "⚠️ Errore durante il recupero dei dati dell'utente.";
+    }
 
     if ($user) {
         // Verifica la password hashata
