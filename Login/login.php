@@ -1,68 +1,95 @@
 <?php
-session_start();
-$title = 'Login';
+require __DIR__ . '/../Config/DbConnection.php';
+$conf = require __DIR__ . '/../Config/db_conf.php';
 
-require_once __DIR__ . '/../Config/DbConnection.php';
-$config = require_once __DIR__ . '/../Config/db_conf.php';
+$db = DbConnection::getDb($conf);
 
-// Connessione al database
-$db = DbConnection::getDb($config);
+// 🔍 Controlla se la tabella "personale" è vuota; se sì, inserisce gli utenti di default con password hashata
+$stmt = $db->query("SELECT COUNT(*) as count FROM personale");
+$countRow = $stmt->fetch(PDO::FETCH_OBJ);
 
-$error = '';
+if ($countRow->count == 0) {
+    $users = [
+        ['CF123456789', 'Giovanni Rossi', 'giovanni.rossi@email.com', 'Sede Milano'],
+        ['CF987654321', 'Maria Bianchi', 'maria.bianchi@email.com', 'Sede Roma'],
+        ['CF112233445', 'Luca Verdi', 'luca.verdi@email.com', 'Sede Napoli'],
+        ['CF998877665', 'Anna Gialli', 'anna.gialli@email.com', 'Sede Torino'],
+        ['CF667788991', 'Marco Blu', 'marco.blu@email.com', 'Sede Bologna'],
+        ['CF223344556', 'Elena Rosa', 'elena.rosa@email.com', 'Sede Firenze'],
+        ['CF334455667', 'Stefano Azzurri', 'stefano.azzurri@email.com', 'Sede Venezia'],
+        ['CF445566778', 'Paola Neri', 'paola.neri@email.com', 'Sede Palermo'],
+        ['CF556677889', 'Giulia Verde', 'giulia.verde@email.com', 'Sede Genova'],
+        ['CF667788992', 'Francesco Arancio', 'francesco.arancio@email.com', 'Sede Bari'],
+    ];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Hash della password "admin123"
+    $password_hash = password_hash("admin123", PASSWORD_DEFAULT);
+
+    $stmtInsert = $db->prepare("INSERT INTO personale (codice_fiscale, nome, mail, password, sede) VALUES (?, ?, ?, ?, ?)");
+    foreach ($users as $user) {
+        $stmtInsert->execute([$user[0], $user[1], $user[2], $password_hash, $user[3]]);
+    }
+    //echo "✅ Utenti di default inseriti!<br>";
+}
+
+$error = "";
+
+// Precompila l'email dal cookie "remember_me", se presente
+$email_salvata = isset($_COOKIE['remember_me']) ? $_COOKIE['remember_me'] : '';
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Query per cercare l'utente nel database in base all'email
+    // Query per ottenere i dati dell'utente, usando fetch(PDO::FETCH_OBJ)
     $stmt = $db->prepare("SELECT codice_fiscale, password, nome FROM personale WHERE mail = ?");
     $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_OBJ);
 
     if ($user) {
-        // Verifica della password con password_verify()
-        if (password_verify($password, $user['password'])) {
-            // Imposta le variabili di sessione per l'utente autenticato
-            $_SESSION['user_id'] = $user['codice_fiscale'];
-            $_SESSION['user_nome'] = $user['nome'];
+        // Verifica la password hashata
+        if (password_verify($password, $user->password)) {
+            $_SESSION['user_id'] = $user->codice_fiscale;
             $_SESSION['user_email'] = $email;
+            $_SESSION['user_nome'] = $user->nome;
 
-            // Se l'utente ha selezionato "Ricordami", imposta un cookie per 30 giorni
+            // Se "Ricordami" è selezionato, salva il cookie per 30 giorni
             if (isset($_POST['remember'])) {
                 setcookie("remember_me", $email, time() + (86400 * 30), "/");
+            } else {
+                // Se non selezionato, elimina il cookie esistente
+                setcookie("remember_me", "", time() - 3600, "/");
             }
 
-            // Reindirizza alla dashboard o ad un'altra pagina protetta
-            header("Location: dashboard.php");
+            header("Location: ../index.php");
             exit();
         } else {
-            $error = "Password errata.";
+            $error = "⚠️ Password errata.";
         }
     } else {
-        $error = "Utente non trovato.";
+        $error = "⚠️ Utente non trovato.";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $title; ?> - FastRoute</title>
+    <title>Login - FastRoute</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
     <h1 class="text-center mb-4">Login - FastRoute</h1>
+
     <?php if ($error): ?>
-        <div class="alert alert-danger">
-            <?php echo $error; ?>
-        </div>
+        <div class="alert alert-danger text-center"><?= $error ?></div>
     <?php endif; ?>
+
     <form action="login.php" method="post" class="w-50 mx-auto">
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" name="email" id="email" class="form-control" required>
+            <input type="email" name="email" id="email" class="form-control" value="<?= $email_salvata ?>" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password:</label>
