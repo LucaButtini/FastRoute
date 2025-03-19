@@ -4,6 +4,7 @@ require __DIR__ . '/../Config/DbConnection.php';
 $conf = require __DIR__ . '/../Config/db_conf.php';
 
 $db = DbConnection::getDb($conf);
+//var_dump($_COOKIE['remember_me'] ?? "Il cookie non esiste più");
 
 // 🔍 Controlla se la tabella "personale" è vuota; se sì, inserisce gli utenti di default con password hashata
 $query_count = "SELECT COUNT(*) as count FROM personale";
@@ -76,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // Se "Ricordami" è selezionato, salva il cookie per 30 giorni
             if (isset($_POST['remember'])) {
-                setcookie("remember_me", $email, time() + (86400 * 30), "/");
+                //setcookie("remember_me", $email, time() + (86400 * 30), "/");
+                setcookie("remember_me", "", time() - 3600, "/");
             } else {
                 // Se non selezionato, elimina il cookie esistente
                 setcookie("remember_me", "", time() - 3600, "/");
@@ -110,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <form action="login.php" method="post" class="w-50 mx-auto">
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" name="email" id="email" class="form-control" value="<?= $email_salvata ?>" required>
+            <input type="email" name="email" id="email" class="form-control" value="<?= $email_salvata ?>" autocomplete="off" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password:</label>

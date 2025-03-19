@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+$bgColor = isset($_COOKIE['bg-color']) ? $_COOKIE['bg-color'] : 'white';
+// Imposta il colore del testo in base al tema (modifica a piacere)
+$textColor = 'black';
+if ($bgColor == 'black') {
+    $textColor = 'white';
+} elseif ($bgColor == 'grey') {
+    $textColor = 'black'; // Puoi personalizzare ulteriormente se vuoi
+}
+
 $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
 ?>
 
@@ -15,7 +25,7 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
 
     <title><?= htmlspecialchars($title) ?></title>
 </head>
-<body class="bg-body-tertiary">
+<body style="background-color: <?= $bgColor ?>; color: <?= $textColor ?>;">
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-3">
     <div class="container-fluid">
