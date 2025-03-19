@@ -1,4 +1,5 @@
 <?php
+session_start(); // Avvia la sessione qui!
 require __DIR__ . '/../Config/DbConnection.php';
 $conf = require __DIR__ . '/../Config/db_conf.php';
 
