@@ -14,7 +14,7 @@ create table email_conferma(
                                descrizione varchar(250)
 );
 
--- sede 
+-- sede
 create table sedi(
                      nome varchar(50) primary key,
                      citta varchar(50)
@@ -31,7 +31,7 @@ create table personale(
 );
 
 
--- plichi 
+-- plichi
 create table plichi(
                        codice int primary key,
                        id_email int,
@@ -118,6 +118,11 @@ INSERT INTO sedi (nome, citta) VALUES
                                    ('Sede Genova', 'Genova'),
                                    ('Sede Bari', 'Bari');
 
+-- Inserimento stati di default
+INSERT INTO stati (nome) VALUES
+                             ('in partenza'),
+                             ('in transito'),
+                             ('consegnato');
 
 --  personale di default
 /*INSERT INTO personale (codice_fiscale, nome, mail, password, sede) VALUES
@@ -132,4 +137,9 @@ INSERT INTO sedi (nome, citta) VALUES
 ('CF556677889', 'Giulia Verde', 'giulia.verde@email.com', 'Password123!', 'Sede Genova'),
 ('CF667788992', 'Francesco Arancio', 'francesco.arancio@email.com', 'Password123!', 'Sede Bari');*/
 
+
+select * from personale;
+select * from clienti;
+
+delete from clienti;
 delete from personale;
