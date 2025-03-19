@@ -8,9 +8,22 @@ $db = DbConnection::getDb($conf);
 $error = "";
 $success = "";
 
+// Recupera i dati dell'utente
+$user_id = $_SESSION['user_id']; // Il codice fiscale dell'utente loggato
+$query = "SELECT codice_fiscale, nome, mail, sede FROM personale WHERE codice_fiscale = ?";
+
+try {
+    $stmt = $db->prepare($query);
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch(PDO::FETCH_OBJ);
+    $stmt->closeCursor();
+} catch (PDOException $exception) {
+    logError($exception);
+    $error = "⚠️ Errore nel recupero dei dati utente.";
+}
+
 // Se il form è stato inviato
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $user_id = $_SESSION['user_id']; // Il codice fiscale dell'utente loggato
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
@@ -20,19 +33,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $error = "⚠️ Le nuove password non corrispondono.";
     } else {
         // Recupera la password attuale dell'utente nel database
-        $stmt = $db->prepare("SELECT password FROM personale WHERE codice_fiscale = ?");
-        $stmt->execute([$user_id]);
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $query_password = "SELECT password FROM personale WHERE codice_fiscale = ?";
+        try {
+            $stmt = $db->prepare($query_password);
+            $stmt->execute([$user_id]);
+            $user_data = $stmt->fetch(PDO::FETCH_OBJ);
+            $stmt->closeCursor();
 
-        // Verifica la password attuale
-        if ($user && password_verify($current_password, $user->password)) {
-            // Se la password attuale è corretta, aggiorna la password
-            $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-            $updateStmt = $db->prepare("UPDATE personale SET password = ? WHERE codice_fiscale = ?");
-            $updateStmt->execute([$new_password_hash, $user_id]);
-            $success = "✅ La tua password è stata cambiata con successo!";
-        } else {
-            $error = "⚠️ La password attuale non è corretta.";
+            // Verifica la password attuale
+            if ($user_data && password_verify($current_password, $user_data->password)) {
+                // Se la password attuale è corretta, aggiorna la password
+                $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                $update_query = "UPDATE personale SET password = ? WHERE codice_fiscale = ?";
+                try {
+                    $updateStmt = $db->prepare($update_query);
+                    $updateStmt->execute([$new_password_hash, $user_id]);
+                    $success = "✅ La tua password è stata cambiata con successo!";
+                    $updateStmt->closeCursor();
+                } catch (PDOException $exception) {
+                    logError($exception);
+                    $error = "⚠️ Errore durante l'aggiornamento della password.";
+                }
+            } else {
+                $error = "⚠️ La password attuale non è corretta.";
+            }
+        } catch (PDOException $exception) {
+            logError($exception);
+            $error = "⚠️ Errore durante la verifica della password.";
         }
     }
 }
@@ -47,7 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Cambia la tua Password</h1>
+    <h1 class="text-center text-danger mb-4"><strong>Cambia la tua Password</strong></h1>
+
+    <!-- Visualizzazione delle credenziali dell'utente -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title"><strong>Dati utente</strong></h5>
+            <p><strong>Codice Fiscale:</strong> <?= htmlspecialchars($user->codice_fiscale) ?></p>
+            <p><strong>Nome:</strong> <?= htmlspecialchars($user->nome) ?></p>
+            <p><strong>Email:</strong> <?= htmlspecialchars($user->mail) ?></p>
+            <p><strong>Sede:</strong> <?= htmlspecialchars($user->sede) ?></p>
+        </div>
+    </div>
 
     <!-- Se c'è un errore -->
     <?php if ($error) { ?>
