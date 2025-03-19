@@ -34,6 +34,9 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
                     <a class="nav-link" href="insert_clienti.php">Inserimento Cliente</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="insert_destinatari.php">Inserimento Destinatari</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Pricing</a>
                 </li>
             </ul>
