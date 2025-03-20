@@ -45,7 +45,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdownTrasporti">
                         <li><a class="dropdown-item" href="elenco_clienti.php"><i class="bi bi-box-seam"></i> Clienti</a></li>
                         <li><a class="dropdown-item" href="elenco_destinatari.php"><i class="bi bi-arrow-down-circle"></i> Destinatari</a></li>
-                        <li><a class="dropdown-item" href="insert_plichi.php"><i class="bi bi-truck"></i> Plichi</a></li>
+                        <li><a class="dropdown-item" href="elenco_plichi.php"><i class="bi bi-truck"></i> Plichi</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
