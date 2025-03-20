@@ -15,3 +15,12 @@
     width: 80%;
     border: 5px solid #000; /* Colore e spessore del bordo */
 }
+
+.dropdown-menu.bg-primary .dropdown-item {
+    color: white; /* Testo bianco normale */
+}
+
+.dropdown-menu.bg-primary .dropdown-item:hover {
+    background-color: white; /* Sfondo bianco al passaggio del mouse */
+    color: black; /* Testo nero al passaggio del mouse */
+}

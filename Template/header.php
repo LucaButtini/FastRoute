@@ -37,7 +37,17 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
                     <a class="nav-link" href="insert_destinatari.php">Inserimento Destinatari</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="insert_plichi.php">Inserimento Plico</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownTrasporti" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Gestione
+                    </a>
+                    <ul class="dropdown-menu bg-primary" aria-labelledby="dropdownTrasporti">
+                        <li><a class="dropdown-item" href="insert_consegna.php"><i class="bi bi-box-seam"></i> Inserimento Consegna</a></li>
+                        <li><a class="dropdown-item" href="insert_ritiro.php"><i class="bi bi-arrow-down-circle"></i> Inserimento Ritiro</a></li>
+                        <li><a class="dropdown-item" href="insert_spedizione.php"><i class="bi bi-truck"></i> Inserimento Spedizione</a></li>
+                    </ul>
                 </li>
             </ul>
 
