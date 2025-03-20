@@ -3,7 +3,7 @@ $title = "FastRoute - Home";
 require './Template/header.php';
 ?>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <div class="row">
         <div class="col-12 p-3">
             <h1 class="text-danger"><strong>Portale Trasporti FastRoute</strong></h1>
@@ -109,6 +109,6 @@ require './Template/header.php';
             </form>
         </div>
     </div>
-</div>
+
 
 <?php require './Template/footer.php'; ?>

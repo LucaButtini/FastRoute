@@ -1,6 +1,6 @@
 <?php
 ?>
-
+</div>
 <footer>
     <div class="bg-primary py-5 mt-5 text-center">
         <p class="display-6 mb-3 text-white">FASTROUTE MANAGEMENT</p>

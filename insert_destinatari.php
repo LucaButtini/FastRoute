@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!-- Form di inserimento dati destinatario -->
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <div class="text-center">
         <h1 class="text-primary"><strong>Inserisci Nuovo Destinatario</strong></h1>
         <p class="lead">Compila il form per registrare i dati del destinatario.</p>
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Aggiungi Destinatario</button>
     </form>
-</div>
+
 
 <?php
 require './Template/footer.php';

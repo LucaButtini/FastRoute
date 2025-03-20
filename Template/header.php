@@ -17,7 +17,7 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
 
     <title><?= htmlspecialchars($title) ?></title>
 </head>
-<body style="background-color: <?= $bgColor ?>;">
+<body style="background-color: <?= $bgColor ?>;" class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-3">
     <div class="container-fluid">
@@ -66,3 +66,4 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
         </div>
     </div>
 </nav>
+<div class="container mt-5 text-center bg-body-tertiary rounded-4 flex-grow-1">
