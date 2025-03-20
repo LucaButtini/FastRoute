@@ -1,13 +1,9 @@
 <?php
 $title = 'Inserimento Cliente';
-require './Template/header.php';
-
-
 require 'Config/DBConnection.php';
-
 $conf= require 'Config/db_conf.php';
-
 $db = DbConnection::getDb($conf);
+require './Template/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -86,3 +82,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php
 require './Template/footer.php';
+?>

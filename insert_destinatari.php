@@ -1,12 +1,9 @@
 <?php
 $title = 'Inserimento Destinatario';
-require './Template/header.php';
-
 require 'Config/DBConnection.php';
-
-$conf = require 'Config/db_conf.php';
-
+$conf= require 'Config/db_conf.php';
 $db = DbConnection::getDb($conf);
+require './Template/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
