@@ -15,7 +15,7 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="Styles/style.css">
 
-    <title><?= htmlspecialchars($title) ?></title>
+    <title><?= $title ?></title>
 </head>
 <body style="background-color: <?= $bgColor ?>;" class="d-flex flex-column min-vh-100">
 
@@ -47,7 +47,7 @@ $page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 
                 ?>
                 <div class="dropdown">
                     <button class="btn btn-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i> <?= htmlspecialchars($_SESSION['user_nome']) ?>
+                        <i class="bi bi-person-circle"></i> <?= $_SESSION['user_nome'] ?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <li><a class="dropdown-item" href="Login/impostazioni.php"><i class="bi bi-gear-fill"></i> Impostazioni</a></li>
