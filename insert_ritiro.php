@@ -53,7 +53,7 @@ function sendMail(){
         $mail->Host='smtp.gmail.com'; //gmail smtp server
         $mail->SMTPAuth=true;
         $mail->Username='luca.buttini@iisviolamarchesini.edu.it';
-        $mail->Password= 'snqo ahiq xxse lrpz';
+        $mail->Password= '';
         $mail->SMTPSecure=PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port=587;
         $mail->setFrom('fastroute@mail.com');
