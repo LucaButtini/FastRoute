@@ -18,7 +18,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
     <link rel="stylesheet" href="Styles/style.css">
     <title><?= $title ?? 'FastRoute' ?></title>
 </head>
-<body style="background-color: <?= htmlspecialchars($bgColor) ?>;" class="d-flex flex-column min-vh-100">
+<body style="background-color: <?=$bgColor ?>;" class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-3">
     <div class="container-fluid">

@@ -8,7 +8,7 @@ $db = DbConnection::getDb($conf);
 $query_count = "SELECT COUNT(*) as count FROM personale";
 try {
     $stmt = $db->query($query_count);
-    $countRow = $stmt->fetch(PDO::FETCH_OBJ);
+    $countRow = $stmt->fetch();
     $stmt->closeCursor();
 } catch (PDOException $exception) {
     logError($exception);

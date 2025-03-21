@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="data_consegna" class="form-label">Data e Ora Consegna:</label>
             <input type="datetime-local" class="form-control" id="data_consegna" name="data_consegna" required>
         </div>
-        <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Registra Consegna</button>
+        <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Registra Consegna</button>
     </form>
 </div>
 

@@ -94,7 +94,7 @@ function sendMail(){
             <label for="data_ritiro" class="form-label">Data e Ora Ritiro:</label>
             <input type="datetime-local" class="form-control" id="data_ritiro" name="data_ritiro" required>
         </div>
-        <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Registra Ritiro</button>
+        <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Registra Ritiro</button>
     </form>
 </div>
 

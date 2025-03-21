@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="number" class="form-control" id="punteggio" name="punteggio" placeholder="Punteggio" min="0" required>
         </div>
 
-        <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Aggiungi Cliente</button>
+        <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Aggiungi Cliente</button>
     </form>
 
 

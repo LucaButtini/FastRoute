@@ -9,10 +9,39 @@ $db = DbConnection::getDb($conf);
 $error = '';
 $success = '';
 
+// Carica gli stati dalla tabella "stati"
+$statesOptions = '';
+$queryStates = "SELECT nome FROM stati ORDER BY nome";
+try {
+    $stmStates = $db->prepare($queryStates);
+    $stmStates->execute();
+    while ($state = $stmStates->fetch()) {
+        $statesOptions .= "<option value='" . $state->nome . "'>" . $state->nome . "</option>";
+    }
+    $stmStates->closeCursor();
+} catch (Exception $e) {
+    $statesOptions = "<option value=''>Errore nel caricamento degli stati</option>";
+}
+
+// Carica le sedi dalla tabella "sedi"
+$sediOptions = '';
+$querySedi = "SELECT nome FROM sedi ORDER BY nome";
+try {
+    $stmSedi = $db->prepare($querySedi);
+    $stmSedi->execute();
+    while ($sede = $stmSedi->fetch()) {
+        $sediOptions .= "<option value='" . $sede->nome . "'>" . $sede->nome . "</option>";
+    }
+    $stmSedi->closeCursor();
+} catch (Exception $e) {
+    $sediOptions = "<option value=''>Errore nel caricamento delle sedi</option>";
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recupero dei dati dal form
     $codice = $_POST['codice'];
     $stato = $_POST['stato'];
+    $nome_sede = $_POST['nome_sede'];
 
     // Verifica se il plico esiste già (controllo per codice)
     $checkQuery = "SELECT * FROM plichi WHERE codice = :codice";
@@ -32,6 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindValue(':stato', $stato);
 
         if ($stmt->execute()) {
+            // Inserimento nella tabella plichi_sedi
+            $queryPlichiSedi = "INSERT INTO plichi_sedi (nome_sede, codice_plico) VALUES (:nome_sede, :codice)";
+            $stmtPlichiSedi = $db->prepare($queryPlichiSedi);
+            $stmtPlichiSedi->bindValue(':nome_sede', $nome_sede);
+            $stmtPlichiSedi->bindValue(':codice', $codice);
+            $stmtPlichiSedi->execute();
+
             header('Location: confirm.html');
             exit();
         } else {
@@ -59,12 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-4">
             <label for="stato" class="form-label">Stato del Plico:</label>
             <select class="form-select" id="stato" name="stato" required>
-                <option value="in partenza">In Partenza</option>
-                <option value="in transito">In Transito</option>
-                <option value="consegnato">Consegnato</option>
+                <?= $statesOptions; ?>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Aggiungi Plico</button>
+        <div class="mb-4">
+            <label for="nome_sede" class="form-label">Sede:</label>
+            <select class="form-select" id="nome_sede" name="nome_sede" required>
+                <?= $sediOptions; ?>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Aggiungi Plico</button>
     </form>
 </div>
 

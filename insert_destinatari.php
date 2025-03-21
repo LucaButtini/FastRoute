@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" class="form-control" id="cognome" name="cognome" placeholder="Cognome" required>
         </div>
 
-        <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Aggiungi Destinatario</button>
+        <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Aggiungi Destinatario</button>
     </form>
 
 

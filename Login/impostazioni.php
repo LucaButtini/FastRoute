@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST
         try {
             $stmt = $db->prepare($query_password);
             $stmt->execute([$_SESSION['user_id']]);
-            $user_data = $stmt->fetch(PDO::FETCH_OBJ);
+            $user_data = $stmt->fetch();
             $stmt->closeCursor();
 
             // Verifica la password attuale
@@ -44,18 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST
                 try {
                     $updateStmt = $db->prepare($update_query);
                     $updateStmt->execute([$new_password_hash, $_SESSION['user_id']]);
-                    $success = "✅ La tua password è stata cambiata con successo!";
+                    $success = "La tua password è stata cambiata con successo!";
                     $updateStmt->closeCursor();
                 } catch (PDOException $exception) {
                     logError($exception);
-                    $error = "⚠️ Errore durante l'aggiornamento della password.";
+                    $error = "Errore durante l'aggiornamento della password.";
                 }
             } else {
-                $error = "⚠️ La password attuale non è corretta.";
+                $error = "La password attuale non è corretta.";
             }
         } catch (PDOException $exception) {
             logError($exception);
-            $error = "⚠️ Errore durante la verifica della password.";
+            $error = "Errore durante la verifica della password.";
         }
     }
 }
@@ -70,7 +70,7 @@ try {
     $stmt->closeCursor();
 } catch (PDOException $exception) {
     logError($exception);
-    $error = "⚠️ Errore nel recupero dei dati utente.";
+    $error = "Errore nel recupero dei dati utente.";
 }
 ?>
 <!DOCTYPE html>
@@ -150,7 +150,7 @@ try {
                 <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Cambia Password</button>
+            <button type="submit" class="btn btn-primary w-100 mb-5">Cambia Password</button>
         </form>
     <?php } ?>
 </div>
