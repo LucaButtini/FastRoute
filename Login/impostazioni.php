@@ -2,10 +2,9 @@
 session_start(); // Avvia la sessione qui!
 require_once '../Config/DbConnection.php';
 $conf = require __DIR__ . '/../Config/db_conf.php';
-
 $db = DbConnection::getDb($conf);
 
-// --- Gestione del tema ---
+//  Gestione del tema
 // Se è stato inviato il form per il tema (campo "color" presente)
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST['form_type'] === 'theme') {
     $selectedColor = $_POST['color'];

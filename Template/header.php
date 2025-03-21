@@ -1,4 +1,7 @@
 <?php
+ob_start();
+//per risolvere questo errore
+//Warning: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\FastRoute\Template\header.php:66) in C:\xampp\htdocs\FastRoute\insert_clienti.php on line 42
 session_start();
 
 $bgColor = isset($_COOKIE['bg-color']) ? $_COOKIE['bg-color'] : 'white';
@@ -13,7 +16,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="Styles/style.css">
-    <title><?= htmlspecialchars($title ?? 'FastRoute') ?></title>
+    <title><?= $title ?? 'FastRoute' ?></title>
 </head>
 <body style="background-color: <?= htmlspecialchars($bgColor) ?>;" class="d-flex flex-column min-vh-100">
 
@@ -62,7 +65,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
             <?php if (isset($_SESSION['user_nome'])): ?>
                 <div class="dropdown">
                     <button class="btn btn-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> <?= htmlspecialchars($_SESSION['user_nome']) ?>
+                        <i class="bi bi-person-circle"></i> <?= $_SESSION['user_nome'] ?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="Login/impostazioni.php"><i class="bi bi-gear-fill"></i> Impostazioni</a></li>

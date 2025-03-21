@@ -1,12 +1,10 @@
 <?php
-session_start(); // Avvia la sessione qui!
+session_start(); // sessione avviata
 require __DIR__ . '/../Config/DbConnection.php';
 $conf = require __DIR__ . '/../Config/db_conf.php';
-
 $db = DbConnection::getDb($conf);
-//var_dump($_COOKIE['remember_me'] ?? "Il cookie non esiste più");
 
-// 🔍 Controlla se la tabella "personale" è vuota; se sì, inserisce gli utenti di default con password hashata
+//guardo se la tabella personale è vuota, se sì, inserisce gli utenti di default con password hashata
 $query_count = "SELECT COUNT(*) as count FROM personale";
 try {
     $stmt = $db->query($query_count);
@@ -34,38 +32,41 @@ if ($countRow->count == 0) {
     // Hash della password "admin123"
     $password_hash = password_hash("admin123", PASSWORD_DEFAULT);
 
+    //punto di domanda  un modo per indicare che un valore verrà inserito più tardi in modo sicuro
     $query_insert = "INSERT INTO personale (codice_fiscale, nome, mail, password, sede) VALUES (?, ?, ?, ?, ?)";
     try {
         $stmtInsert = $db->prepare($query_insert);
         foreach ($users as $user) {
+            // query preparata coi placeholder quindi passo i dati alla query in ordine
             $stmtInsert->execute([$user[0], $user[1], $user[2], $password_hash, $user[3]]);
         }
         $stmtInsert->closeCursor();
     } catch (PDOException $exception) {
         logError($exception);
-        $error = "⚠️ Errore durante l'inserimento degli utenti di default.";
+        $error = "Errore durante l'inserimento degli utenti di default.";
     }
 }
 
 $error = "";
 
-// Precompila l'email dal cookie "remember_me", se presente
+// se ho messo il cookie mi precompila la mail
+
 $email_salvata = isset($_COOKIE['remember_me']) ? $_COOKIE['remember_me'] : '';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Query per ottenere i dati dell'utente, usando fetch(PDO::FETCH_OBJ)
+    // dati del personale
     $query_user = "SELECT codice_fiscale, password, nome FROM personale WHERE mail = ?";
     try {
         $stmt = $db->prepare($query_user);
         $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $user = $stmt->fetch();
         $stmt->closeCursor();
     } catch (PDOException $exception) {
         logError($exception);
-        $error = "⚠️ Errore durante il recupero dei dati dell'utente.";
+        $error = "Errore durante il recupero dei dati dell'utente.";
     }
 
     if ($user) {
@@ -75,22 +76,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['user_email'] = $email;
             $_SESSION['user_nome'] = $user->nome;
 
-            // Se "Ricordami" è selezionato, salva il cookie per 30 giorni
+            // se ricordami è selezionato, salva il cookie per 30 giorni
             if (isset($_POST['remember'])) {
-                //setcookie("remember_me", $email, time() + (86400 * 30), "/");
+
                 setcookie("remember_me", "", time() - 3600, "/");
             } else {
-                // Se non selezionato, elimina il cookie esistente
-                setcookie("remember_me", "", time() - 3600, "/");
+                // se non selezionato, elimina il cookie esistente
+                //setcookie("remember_me", "", time() - 3600, "/");
             }
 
             header("Location: ../index.php");
             exit();
         } else {
-            $error = "⚠️ Password errata.";
+            $error = "Password errata.";
         }
     } else {
-        $error = "⚠️ Utente non trovato.";
+        $error = "Utente non trovato.";
     }
 }
 ?>
@@ -105,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <div class="container mt-5">
     <h1 class="text-center mb-4">Login - FastRoute</h1>
 
-    <?php if ($error): ?>
+    <?php if ($error) {?>
         <div class="alert alert-danger text-center"><?= $error ?></div>
-    <?php endif; ?>
+    <?php } ?>
 
     <form action="login.php" method="post" class="w-50 mx-auto">
         <div class="mb-3">

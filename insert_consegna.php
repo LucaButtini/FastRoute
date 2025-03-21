@@ -10,11 +10,11 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recupero dei dati dal form
-    $cliente = $_POST['cliente'];             // Codice fiscale del cliente mittente
+    $cliente = $_POST['cliente'];
     $codice_plico = $_POST['codice_plico'];
-    $data_consegna = $_POST['data_consegna'];   // formato datetime-local
+    $data_consegna = $_POST['data_consegna'];
 
-    // Verifica se la consegna esiste già (facoltativo)
+    // Verifica se la consegna esiste già
     $checkQuery = "SELECT * FROM consegne WHERE cliente = :cliente AND codice_plico = :codice_plico";
     $checkStmt = $db->prepare($checkQuery);
     $checkStmt->bindValue(':cliente', $cliente);
