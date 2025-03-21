@@ -1,22 +1,25 @@
 <?php
 $title = 'Inserimento Ritiro';
 require 'Config/DBConnection.php';
-$conf= require 'Config/db_conf.php';
+$conf = require 'Config/db_conf.php';
 $db = DbConnection::getDb($conf);
 require './Template/header.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 require 'vendor/autoload.php';
+
 $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recupero dei dati dal form
-    $destinatario = $_POST['destinatario'];   // Codice fiscale del destinatario
+    // Recupero dati dal form
+    $destinatario = $_POST['destinatario']; // Codice fiscale del destinatario
     $codice_plico = $_POST['codice_plico'];
-    $data_ritiro = $_POST['data_ritiro'];       // formato datetime-local
+    $data_ritiro = $_POST['data_ritiro']; // Formato datetime-local
 
-    // Verifica se il ritiro esiste già (facoltativo)
+    // Verifica se il ritiro esiste già
     $checkQuery = "SELECT * FROM ritiri WHERE destinatario = :destinatario AND codice_plico = :codice_plico";
     $checkStmt = $db->prepare($checkQuery);
     $checkStmt->bindValue(':destinatario', $destinatario);
@@ -25,49 +28,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $existingRitiro = $checkStmt->fetch();
 
     if ($existingRitiro) {
-        $error = "Ritiro per questo plico e destinatario è già stato registrato!";
+        $error = "Ritiro già registrato per questo plico e destinatario!";
     } else {
-        $query = "INSERT INTO ritiri (destinatario, codice_plico, data) 
-                  VALUES (:destinatario, :codice_plico, :data_ritiro)";
-        $stmt = $db->prepare($query);
-        $stmt->bindValue(':destinatario', $destinatario);
-        $stmt->bindValue(':codice_plico', $codice_plico);
-        $stmt->bindValue(':data_ritiro', $data_ritiro);
+        // Recupera l'email del mittente (cliente)
+        $mittenteQuery = "SELECT c.mail AS email_mittente 
+                          FROM consegne co
+                          JOIN clienti c ON co.cliente = c.codice_fiscale
+                          WHERE co.codice_plico = :codice_plico";
+        $mittenteStmt = $db->prepare($mittenteQuery);
+        $mittenteStmt->bindValue(':codice_plico', $codice_plico);
+        $mittenteStmt->execute();
+        $mittente = $mittenteStmt->fetch();
 
-        if ($stmt->execute()) {
-            $success = "Ritiro registrato correttamente!";
-            // Qui, eventualmente, potresti aggiungere la logica per l'invio dell'email di conferma
-            header('Location: confirm.html');
-            exit();
+        if (!$mittente) {
+            $error = "Errore: impossibile trovare il mittente di questo plico.";
         } else {
-            $error = "Errore durante la registrazione del ritiro.";
+            $email_mittente = $mittente->email_mittente;
+
+            // Inserisci il ritiro nel database
+            $query = "INSERT INTO ritiri (destinatario, codice_plico, data) 
+                      VALUES (:destinatario, :codice_plico, :data_ritiro)";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':destinatario', $destinatario);
+            $stmt->bindValue(':codice_plico', $codice_plico);
+            $stmt->bindValue(':data_ritiro', $data_ritiro);
+
+            if ($stmt->execute()) {
+                $success = "Ritiro registrato correttamente!";
+
+                // Invia email di conferma al mittente (cliente)
+                sendMail($email_mittente, "Conferma Ritiro Plico",
+                    "Gentile cliente,\n\n"
+                    . "Il plico con codice: $codice_plico è stato ritirato il $data_ritiro.\n\n"
+                    . "Grazie per aver scelto FastRoute!");
+
+                header('Location: confirm.html');
+                exit();
+            } else {
+                $error = "Errore durante la registrazione del ritiro.";
+            }
         }
     }
 }
 
-function sendMail(){
+function sendMail($to, $subject, $body) {
     $mail = new PHPMailer(true);
-    /*try{
-        $mail->SMTPDebug=2;
+    try {
         $mail->isSMTP();
-        $mail->Host='smtp.gmail.com'; //gmail smtp server
-        $mail->SMTPAuth=true;
-        $mail->Username='luca.buttini@iisviolamarchesini.edu.it';
-        $mail->Password= '';
-        $mail->SMTPSecure=PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port=587;
-        $mail->setFrom('fastroute@mail.com');
-        $mail->addAddress('luca.buttini@iisviolamarchesini.edu.it');
-        $mail->Subject='Conferma ritiro plico';
-        $mail->Body='Il tuo plico è stato ritirato';
-        $mail->CharSet='UTF-8';
-        $mail->Encoding='base64';
-        $mail->send();
-        echo 'Email sent successfuly';
-    }catch (\Exception $e){
-        echo "Error: {$mail->ErrorInfo}";
-    }*/
+        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'luca.buttini@iisviolamarchesini.edu.it';
+        $mail->Password = ''; // Inserisci la password dell'email
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
+        $mail->setFrom('fastroute@mail.com', 'FastRoute');
+        $mail->addAddress('luca.buttini@iisviolamarchesini.edu.it'); // Invia la mail al mittente (cliente)
+
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Errore nell'invio della mail a $to: {$mail->ErrorInfo}";
+    }
 }
 ?>
 
