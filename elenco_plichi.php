@@ -43,7 +43,7 @@ if (isset($_GET['codice_plico']) && !empty($_GET['codice_plico'])) {
     <!-- Form di ricerca per codice plico -->
     <div class="mb-4">
         <form method="get" action="elenco_plichi.php" class="d-flex justify-content-center">
-            <input type="number" name="codice_plico" class="form-control w-50" placeholder="Inserisci il codice plico" value="<?= isset($search) ? $search : '' ?>">
+            <input type="number" name="codice_plico" class="form-control w-50" placeholder="Inserisci il codice plico" min="0" value="<?= isset($search) ? $search : '' ?>">
             <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-search"></i> Cerca</button>
         </form>
     </div>

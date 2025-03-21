@@ -1,6 +1,44 @@
 <?php
 $title = "FastRoute - Home";
+require 'Config/DBConnection.php';
+$conf = require 'Config/db_conf.php';
+$db = DbConnection::getDb($conf);
 require './Template/header.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+}
+function sendMailInfo($to, $subject, $body) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'luca.buttini@iisviolamarchesini.edu.it';
+        $mail->Password = '';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        $mail->setFrom('fastroute@mail.com', 'FastRoute');
+        $mail->addAddress($to); // Invia la mail al mittente (cliente)
+
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Errore nell'invio della mail a $to: {$mail->ErrorInfo}";
+    }
+}
 ?>
 
 

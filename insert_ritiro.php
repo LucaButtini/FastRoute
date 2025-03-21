@@ -78,7 +78,7 @@ function sendMail($to, $subject, $body) {
         $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
         $mail->SMTPAuth = true;
         $mail->Username = 'luca.buttini@iisviolamarchesini.edu.it';
-        $mail->Password = ''; // Inserisci la password dell'email
+        $mail->Password = '';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
@@ -101,11 +101,11 @@ function sendMail($to, $subject, $body) {
     <h1 class="text-primary"><strong>Inserisci Ritiro</strong></h1>
     <p class="lead">Registra il ritiro del plico effettuato dal destinatario.</p>
 
-    <?php if ($error): ?>
+    <?php if ($error){ ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php elseif ($success): ?>
+    <?php }elseif ($success){ ?>
         <div class="alert alert-success"><?= $success ?></div>
-    <?php endif; ?>
+    <?php } ?>
 
     <form method="post" action="insert_ritiro.php">
         <div class="mb-4">
