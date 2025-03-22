@@ -50,7 +50,8 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
                         <li><a class="dropdown-item" href="elenco_clienti.php"><i class="bi bi-arrow-down-circle"></i> Clienti</a></li>
                         <li><a class="dropdown-item" href="elenco_destinatari.php"><i class="bi bi-arrow-up-circle"></i> Destinatari</a></li>
                         <li><a class="dropdown-item" href="elenco_plichi.php"><i class="bi bi-box-seam"></i> Plichi</a></li>
-                        <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-box-seam"></i> Dashboard</a></li>
+                        <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-table"></i> Dashboard</a></li>
+                        <li><a class="dropdown-item" href="info_consegne.php"><i class="bi bi-table"></i> Info Spedizioni</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
