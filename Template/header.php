@@ -23,7 +23,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark sticky-top py-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><strong><i class="bi bi-truck"> </i>Trasporti FastRoute</strong></a>
+        <a class="navbar-brand" href="#"><strong>Trasporti FastRoute</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,8 +37,8 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
                         Gestione
                     </a>
                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdownTrasporti">
-                        <li><a class="dropdown-item" href="insert_consegna.php"><i class="bi bi-box-seam"></i> Inserimento Consegna</a></li>
-                        <li><a class="dropdown-item" href="insert_ritiro.php"><i class="bi bi-arrow-down-circle"></i> Inserimento Ritiro</a></li>
+                        <li><a class="dropdown-item" href="insert_consegna.php"><i class="bi bi-arrow-down-circle"></i> Inserimento Consegna</a></li>
+                        <li><a class="dropdown-item" href="insert_ritiro.php"><i class="bi bi-arrow-up-circle"></i> Inserimento Ritiro</a></li>
                         <li><a class="dropdown-item" href="insert_spedizione.php"><i class="bi bi-truck"></i> Inserimento Spedizione</a></li>
                     </ul>
                 </li>
@@ -47,9 +47,10 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
                         Elenchi
                     </a>
                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdownTrasporti">
-                        <li><a class="dropdown-item" href="elenco_clienti.php"><i class="bi bi-box-seam"></i> Clienti</a></li>
-                        <li><a class="dropdown-item" href="elenco_destinatari.php"><i class="bi bi-arrow-down-circle"></i> Destinatari</a></li>
-                        <li><a class="dropdown-item" href="elenco_plichi.php"><i class="bi bi-truck"></i> Plichi</a></li>
+                        <li><a class="dropdown-item" href="elenco_clienti.php"><i class="bi bi-arrow-down-circle"></i> Clienti</a></li>
+                        <li><a class="dropdown-item" href="elenco_destinatari.php"><i class="bi bi-arrow-up-circle"></i> Destinatari</a></li>
+                        <li><a class="dropdown-item" href="elenco_plichi.php"><i class="bi bi-box-seam"></i> Plichi</a></li>
+                        <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-box-seam"></i> Dashboard</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

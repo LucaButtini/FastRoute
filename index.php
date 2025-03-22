@@ -144,7 +144,7 @@ function sendMailInfo($to, $subject, $body) {
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Invia Richiesta</button>
+                <button type="submit" class="btn btn-dark ms-2"><i class="bi bi-envelope"></i> Invia richiesta</button>
             </form>
         </div>
     </div>

@@ -34,8 +34,8 @@ if (isset($_GET['codice_plico']) && !empty($_GET['codice_plico'])) {
 }
 ?>
 
-<div class="container mt-5 rounded-4 p-5 bg-white">
-    <div class="text-center pt-3">
+
+    <div class="text-center pt-3 mb-5">
         <h1 class="text-primary"><strong>Dettagli Plico Ricercato</strong></h1>
         <p class="lead">Inserisci il codice del plico per visualizzare le sue informazioni:</p>
     </div>
@@ -44,7 +44,7 @@ if (isset($_GET['codice_plico']) && !empty($_GET['codice_plico'])) {
     <div class="mb-4">
         <form method="get" action="elenco_plichi.php" class="d-flex justify-content-center">
             <input type="number" name="codice_plico" class="form-control w-50" placeholder="Inserisci il codice plico" min="0" value="<?= isset($search) ? $search : '' ?>">
-            <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-search"></i> Cerca</button>
+            <button type="submit" class="btn btn-dark ms-2"><i class="bi bi-search"></i> Cerca</button>
         </form>
     </div>
 
@@ -63,7 +63,7 @@ if (isset($_GET['codice_plico']) && !empty($_GET['codice_plico'])) {
             </div>
         </div>
     <?php } ?>
-</div>
+
 
 <?php
 require './Template/footer.php';
