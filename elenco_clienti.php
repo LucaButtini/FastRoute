@@ -41,7 +41,7 @@ try {
     </div>
 
     <div class="table-responsive mt-4">
-        <table class="table table-striped table-bordered text-center">
+        <table class="table table-striped table-bordered text-center table-hover">
             <thead class="table-dark">
             <tr>
                 <th>Codice Fiscale</th>
