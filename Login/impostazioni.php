@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST
     $bgColor = isset($_COOKIE['bg-color']) ? $_COOKIE['bg-color'] : 'white';
 }
 
-// --- Gestione del cambio password ---
+// Gestione del cambio password
 $error = "";
 $success = "";
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST['form_type'] === 'password') {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST
 
     // Verifica che la nuova password e la conferma siano uguali
     if ($new_password !== $confirm_password) {
-        $error = "⚠️ Le nuove password non corrispondono.";
+        $error = "Le nuove password non corrispondono.";
     } else {
         // Recupera la password attuale dell'utente nel database
         $query_password = "SELECT password FROM personale WHERE codice_fiscale = ?";
@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['form_type']) && $_POST
                 $update_query = "UPDATE personale SET password = ? WHERE codice_fiscale = ?";
                 try {
                     $updateStmt = $db->prepare($update_query);
+                    //quadre per passare i dati alla query col "?"
                     $updateStmt->execute([$new_password_hash, $_SESSION['user_id']]);
                     $success = "La tua password è stata cambiata con successo!";
                     $updateStmt->closeCursor();
@@ -66,7 +67,7 @@ $query = "SELECT codice_fiscale, nome, mail, sede FROM personale WHERE codice_fi
 try {
     $stmt = $db->prepare($query);
     $stmt->execute([$user_id]);
-    $user = $stmt->fetch(PDO::FETCH_OBJ);
+    $user = $stmt->fetch();
     $stmt->closeCursor();
 } catch (PDOException $exception) {
     logError($exception);
@@ -113,10 +114,10 @@ try {
     <div class="card mb-4" style="background-color: <?= ($bgColor == 'black') ? '#333' : (($bgColor == 'grey') ? '#eee' : '#f8f9fa') ?>; color: <?= ($bgColor == 'black') ? '#fff' : '#000' ?>;">
         <div class="card-body">
             <h5 class="card-title"><strong>Dati utente</strong></h5>
-            <p><strong>Codice Fiscale:</strong> <?= htmlspecialchars($user->codice_fiscale) ?></p>
-            <p><strong>Nome:</strong> <?= htmlspecialchars($user->nome) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($user->mail) ?></p>
-            <p><strong>Sede:</strong> <?= htmlspecialchars($user->sede) ?></p>
+            <p><strong>Codice Fiscale:</strong> <?= $user->codice_fiscale ?></p>
+            <p><strong>Nome:</strong> <?= $user->nome ?></p>
+            <p><strong>Email:</strong> <?= $user->mail ?></p>
+            <p><strong>Sede:</strong> <?=$user->sede ?></p>
         </div>
     </div>
 
