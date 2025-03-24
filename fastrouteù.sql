@@ -15,13 +15,7 @@ create table plichi(
      foreign key (stato) references stati(nome)
 );
 
--- email conferma
-create table email_conferma(
-id int primary key auto_increment,
-descrizione varchar(250),
-plico_codice int,
-foreign key(plico_codice) references plichi(codice)
-);
+
 
 -- sede 
 create table sedi(
@@ -143,8 +137,16 @@ INSERT INTO stati (nome) VALUES
 select * from personale;
 select * from clienti;
 select * from destinatari;
+select * from plichi;
+select * from plichi_sedi;
+select * from consegne;
+select * from ritiri;
+select * from spedizioni;
+select * from email_conferma;
 
-
+delete from spedizioni;
+delete from ritiri;
+delete from consegne;
 
 
 
