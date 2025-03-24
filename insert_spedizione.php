@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <h1 class="text-primary"><strong>Inserisci Spedizione</strong></h1>
     <p class="lead">Registra la spedizione del plico effettuata dal responsabile.</p>
 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Registra Spedizione</button>
     </form>
-</div>
+
 
 <?php
 require './Template/footer.php';

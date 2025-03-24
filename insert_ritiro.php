@@ -112,7 +112,7 @@ function sendMail($to, $subject, $body) {
 }
 ?>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <h1 class="text-primary"><strong>Inserisci Ritiro</strong></h1>
     <p class="lead">Registra il ritiro del plico effettuato dal destinatario.</p>
 
@@ -137,7 +137,7 @@ function sendMail($to, $subject, $body) {
         </div>
         <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Registra Ritiro</button>
     </form>
-</div>
+
 
 <?php
 require './Template/footer.php';

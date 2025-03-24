@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <div class="text-center">
         <h1 class="text-primary"><strong>Inserisci Nuovo Plico</strong></h1>
         <p class="lead">Compila il form per registrare i dati del plico.</p>
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Aggiungi Plico</button>
     </form>
-</div>
+
 
 <?php
 require './Template/footer.php';

@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4">
+
     <h1 class="text-primary"><strong>Inserisci Consegna</strong></h1>
     <p class="lead">Registra la consegna del plico effettuata dal cliente mittente.</p>
 
@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <button type="submit" class="btn btn-dark"><i class="bi bi-plus-circle"></i> Registra Consegna</button>
     </form>
-</div>
 
 <?php
 require './Template/footer.php';
