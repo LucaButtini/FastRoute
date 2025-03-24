@@ -51,7 +51,7 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
                         <li><a class="dropdown-item" href="elenco_destinatari.php"><i class="bi bi-arrow-up-circle"></i> Destinatari</a></li>
                         <li><a class="dropdown-item" href="elenco_plichi.php"><i class="bi bi-box-seam"></i> Plichi</a></li>
                         <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-table"></i> Dashboard</a></li>
-                        <li><a class="dropdown-item" href="info_consegne.php"><i class="bi bi-table"></i> Info Spedizioni</a></li>
+                        <li><a class="dropdown-item" href="info_consegne.php"><i class="bi bi-search"></i> Ricerca Consegne</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -83,4 +83,8 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
     </div>
 </nav>
 
-<div class="container mt-5 text-center bg-body-tertiary rounded-4 flex-grow-1">
+<div class="container mt-5 text-center rounded-4 flex-grow-1"
+     style="background-color: <?= ($bgColor == 'black') ? 'darkgray' : (($bgColor == 'grey') ? 'lightgray' : 'white') ?>;
+             color: <?= ($bgColor == 'black') ? 'white' : 'black' ?>;">
+
+
