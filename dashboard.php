@@ -57,11 +57,11 @@ try {
                 <tr>
                     <td><?= $spedizione->codice_plico ?></td>
                     <td><?= $spedizione->mittente ?></td>
-                    <td><?= $spedizione->destinatario ?? '-' ?></td>
-                    <td><?= $spedizione->stato_plico ?? '-' ?></td>
-                    <td><?= $spedizione->data_consegna ? date('d/m/Y H:i', strtotime($spedizione->data_consegna)) : '-' ?></td>
-                    <td><?= $spedizione->data_spedizione ? date('d/m/Y H:i', strtotime($spedizione->data_spedizione)) : '-' ?></td>
-                    <td><?= $spedizione->data_ritiro ? date('d/m/Y H:i', strtotime($spedizione->data_ritiro)) : '-' ?></td>
+                    <td><?= $spedizione->destinatario ?? '--' ?></td>
+                    <td><?= $spedizione->stato_plico ?? '--' ?></td>
+                    <td><?= $spedizione->data_consegna ? date('d/m/Y H:i', strtotime($spedizione->data_consegna)) : '--' ?></td>
+                    <td><?= $spedizione->data_spedizione ? date('d/m/Y H:i', strtotime($spedizione->data_spedizione)) : '--' ?></td>
+                    <td><?= $spedizione->data_ritiro ? date('d/m/Y H:i', strtotime($spedizione->data_ritiro)) : '--' ?></td>
                 </tr>
             <?php } ?>
             </tbody>

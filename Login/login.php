@@ -12,9 +12,11 @@ try {
     $stmt->closeCursor();
 } catch (PDOException $exception) {
     logError($exception);
-    $error = "⚠️ Errore nel controllo della tabella.";
+    $error = "Errore nel controllo";
 }
-
+//personale di default nel database
+// nel caso in cui si apra per la prima volta (a database vuoto) la pagina vengono inserirti
+//nella tabella personale e la password hashasta di default "admin123"
 if ($countRow->count == 0) {
     $users = [
         ['CF123456789', 'Giovanni Rossi', 'giovanni.rossi@email.com', 'Sede Milano'],
@@ -78,12 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // se ricordami è selezionato, salva il cookie per 30 giorni
             if (isset($_POST['remember'])) {
-
-                setcookie("remember_me", "", time() - 3600, "/");
+                setcookie("remember_me", $email, time() + (24 * 60 * 60), "/"); // 1 giorno
             } else {
-                // se non selezionato, elimina il cookie esistente
-                //setcookie("remember_me", "", time() - 3600, "/");
+                setcookie('remember_me', '', time() - 3600, "/"); // Cancella se non selezionato
             }
+
 
             header("Location: ../index.php");
             exit();

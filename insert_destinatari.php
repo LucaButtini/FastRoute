@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $existingRecipient = $checkStmt->fetch();
 
     if ($existingRecipient) {
-        // Se il destinatario è già registrato, mostra un messaggio informativo
+        // Se il destinatario è già registrato
         echo "<div class='container mt-5'><h3 class='text-danger'>Destinatario con questo codice fiscale già registrato!</h3></div>";
     } else {
         // Inserimento del nuovo destinatario

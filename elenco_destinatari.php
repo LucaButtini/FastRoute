@@ -10,17 +10,17 @@ $db = DbConnection::getDb($conf);
 // Query per ottenere i dati dalla tabella "destinatari"
 $query = 'SELECT * FROM destinatari';
 
-$content = ''; // Inizializza la variabile per contenere le righe della tabella
+$content = '';
 
 try {
     $stm = $db->prepare($query);
     $stm->execute();
 
-    while ($destinatario = $stm->fetch(PDO::FETCH_OBJ)) {
+    while ($destinatario = $stm->fetch()) {
         $content .= "<tr>";
-        $content .= "<td>" . htmlspecialchars($destinatario->codice_fiscale) . "</td>";
-        $content .= "<td>" . htmlspecialchars($destinatario->nome) . "</td>";
-        $content .= "<td>" . htmlspecialchars($destinatario->cognome) . "</td>";
+        $content .= "<td>" . $destinatario->codice_fiscale . "</td>";
+        $content .= "<td>" . $destinatario->nome . "</td>";
+        $content .= "<td>" . $destinatario->cognome . "</td>";
         $content .= "</tr>";
     }
 

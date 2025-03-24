@@ -5,7 +5,7 @@ $conf = require 'Config/db_conf.php';
 $db = DbConnection::getDb($conf);
 require './Template/header.php';
 
-// Verifica se il numero di giorni
+
 $days = isset($_GET['days']) ? (int)$_GET['days'] : 0;
 
 $consegneTotali = 0;

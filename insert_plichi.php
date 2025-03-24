@@ -69,9 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p class="lead">Compila il form per registrare i dati del plico.</p>
     </div>
 
-    <?php if ($error): ?>
+    <?php if ($error){ ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php endif; ?>
+    <?php } ?>
 
     <form method="post" action="insert_plichi.php">
         <div class="mb-4">

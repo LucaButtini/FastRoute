@@ -12,11 +12,11 @@ require 'vendor/autoload.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recupera i dati inviati dal form "Richiedi Informazioni"
+
     $nome = trim($_POST['nome']);
     $email = trim($_POST['email']);
 
-    // Costruisci il corpo della mail con informazioni di esempio
+    //  corpo della mail
     $body = "Gentile $nome,\n\n" .
         "Grazie per aver richiesto informazioni sui nostri servizi.\n\n" .
         "Ecco alcune informazioni aggiuntive:\n" .
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         "Cordiali saluti,\n" .
         "Il team FastRoute";
 
-    // Invia la mail di informazioni
+
     sendMailInfo($email, "Richiesta Informazioni - FastRoute", $body);
 
     header('Location: confirm.html');

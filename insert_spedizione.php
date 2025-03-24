@@ -5,12 +5,6 @@ $conf= require 'Config/db_conf.php';
 $db = DbConnection::getDb($conf);
 require './Template/header.php';
 
-// Assumiamo che il personale responsabile sia loggato e il suo codice fiscale sia memorizzato in $_SESSION['user_id']
-if (!isset($_SESSION['user_id'])) {
-    header('Location: Login/login.php');
-    exit();
-}
-
 $error = '';
 $success = '';
 
@@ -52,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h1 class="text-primary"><strong>Inserisci Spedizione</strong></h1>
     <p class="lead">Registra la spedizione del plico effettuata dal responsabile.</p>
 
-    <?php if ($error): ?>
+    <?php if ($error){ ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php elseif ($success): ?>
+    <?php }elseif ($success){ ?>
         <div class="alert alert-success"><?= $success ?></div>
-    <?php endif; ?>
+    <?php } ?>
 
     <form method="post" action="insert_spedizione.php">
         <div class="mb-4">

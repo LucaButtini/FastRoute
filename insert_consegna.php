@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h1 class="text-primary"><strong>Inserisci Consegna</strong></h1>
     <p class="lead">Registra la consegna del plico effettuata dal cliente mittente.</p>
 
-    <?php if ($error): ?>
+    <?php if ($error){ ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php elseif ($success): ?>
+    <?php }elseif ($success){ ?>
         <div class="alert alert-success"><?= $success ?></div>
-    <?php endif; ?>
+    <?php } ?>
 
     <form method="post" action="insert_consegna.php">
         <div class="mb-4">

@@ -14,10 +14,10 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Recupero dati dal form
-    $destinatario = $_POST['destinatario']; // Codice fiscale del destinatario
+
+    $destinatario = $_POST['destinatario'];
     $codice_plico = $_POST['codice_plico'];
-    $data_ritiro = $_POST['data_ritiro']; // Formato datetime-local
+    $data_ritiro = $_POST['data_ritiro'];
 
     // Verifica se il ritiro esiste già
     $checkQuery = "SELECT * FROM ritiri WHERE destinatario = :destinatario AND codice_plico = :codice_plico";
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $email_mittente = $mittente->email_mittente;
 
-            // Recupera il nome e il cognome del destinatario dalla tabella 'destinatari'
+            //  nome e il cognome del destinatario
             $destQuery = "SELECT nome, cognome FROM destinatari WHERE codice_fiscale = :destinatario";
             $destStmt = $db->prepare($destQuery);
             $destStmt->bindValue(':destinatario', $destinatario);
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $nomeDestinatario = "Destinatario Sconosciuto";
             }
 
-            // Inserisci il ritiro nel database
+            // inserisci tabella ritiro
             $query = "INSERT INTO ritiri (destinatario, codice_plico, data) 
                       VALUES (:destinatario, :codice_plico, :data_ritiro)";
             $stmt = $db->prepare($query);

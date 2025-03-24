@@ -10,20 +10,20 @@ $db = DbConnection::getDb($conf);
 // Query per ottenere i dati dalla tabella "clienti"
 $query = 'SELECT * FROM clienti';
 
-$content = ''; // Inizializza la variabile per contenere le righe della tabella
+$content = '';
 
 try {
     $stm = $db->prepare($query);
     $stm->execute();
 
-    while ($cliente = $stm->fetch(PDO::FETCH_OBJ)) {
+    while ($cliente = $stm->fetch()) {
         $content .= "<tr>";
-        $content .= "<td>" . htmlspecialchars($cliente->codice_fiscale) . "</td>";
-        $content .= "<td>" . htmlspecialchars($cliente->nome) . "</td>";
-        $content .= "<td>" . htmlspecialchars($cliente->cognome) . "</td>";
-        $content .= "<td>" . htmlspecialchars($cliente->indirizzo) . "</td>";
-        $content .= "<td>" . htmlspecialchars($cliente->mail) . "</td>";
-        $content .= "<td>" . htmlspecialchars($cliente->punteggio) . "</td>";
+        $content .= "<td>" . $cliente->codice_fiscale . "</td>";
+        $content .= "<td>" . $cliente->nome . "</td>";
+        $content .= "<td>" . $cliente->cognome . "</td>";
+        $content .= "<td>" . $cliente->indirizzo . "</td>";
+        $content .= "<td>" .$cliente->mail . "</td>";
+        $content .= "<td>" . $cliente->punteggio . "</td>";
         $content .= "</tr>";
     }
 
