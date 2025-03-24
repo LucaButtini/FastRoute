@@ -45,6 +45,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $email_mittente = $mittente->email_mittente;
 
+            // Recupera il nome e il cognome del destinatario dalla tabella 'destinatari'
+            $destQuery = "SELECT nome, cognome FROM destinatari WHERE codice_fiscale = :destinatario";
+            $destStmt = $db->prepare($destQuery);
+            $destStmt->bindValue(':destinatario', $destinatario);
+            $destStmt->execute();
+            $destData = $destStmt->fetch();
+
+            if ($destData) {
+                $nomeDestinatario = $destData->nome . " " . $destData->cognome;
+            } else {
+                $nomeDestinatario = "Destinatario Sconosciuto";
+            }
+
             // Inserisci il ritiro nel database
             $query = "INSERT INTO ritiri (destinatario, codice_plico, data) 
                       VALUES (:destinatario, :codice_plico, :data_ritiro)";
@@ -56,11 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt->execute()) {
                 $success = "Ritiro registrato correttamente!";
 
+                // Costruzione del corpo della mail
+                $mailBody = "Gentile cliente,\n\n" .
+                    "Il plico con codice: $codice_plico è stato ritirato il $data_ritiro dal destinatario $nomeDestinatario.\n\n" .
+                    "Grazie per aver scelto FastRoute!";
+
                 // Invia email di conferma al mittente (cliente)
-                sendMail($email_mittente, "Conferma Ritiro Plico",
-                    "Gentile cliente,\n\n"
-                    . "Il plico con codice: $codice_plico è stato ritirato il $data_ritiro.\n\n"
-                    . "Grazie per aver scelto FastRoute!");
+                sendMail($email_mittente, "Conferma Ritiro Plico", $mailBody);
 
                 header('Location: confirm.html');
                 exit();
@@ -78,7 +93,7 @@ function sendMail($to, $subject, $body) {
         $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
         $mail->SMTPAuth = true;
         $mail->Username = 'luca.buttini@iisviolamarchesini.edu.it';
-        $mail->Password = '';
+        $mail->Password = ''; // Inserisci qui la password corretta
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
@@ -103,7 +118,7 @@ function sendMail($to, $subject, $body) {
 
     <?php if ($error){ ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php }elseif ($success){ ?>
+    <?php } elseif ($success){ ?>
         <div class="alert alert-success"><?= $success ?></div>
     <?php } ?>
 

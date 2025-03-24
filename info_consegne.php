@@ -5,32 +5,32 @@ $conf = require 'Config/db_conf.php';
 $db = DbConnection::getDb($conf);
 require './Template/header.php';
 
-// Verifica se il numero di giorni è stato fornito
-$days = isset($_POST['days']) ? (int)$_POST['days'] : 0;
+// Verifica se il numero di giorni
+$days = isset($_GET['days']) ? (int)$_GET['days'] : 0;
 
-// Variabile per i risultati
 $consegneTotali = 0;
 $consegnePerGiorno = [];
 
 if ($days > 0) {
     $query = "
         SELECT 
-            DATE(con.data) AS giorno_consegna,
-            COUNT(con.codice_plico) AS numero_consegne
-        FROM consegne con
-        WHERE con.data >= CURDATE() - INTERVAL :days DAY
-        GROUP BY giorno_consegna
-        ORDER BY giorno_consegna DESC
+    DATE(data) AS giorno_consegna,
+    COUNT(codice_plico) AS numero_consegne
+FROM consegne
+WHERE data >= CURDATE() - :days
+GROUP BY giorno_consegna
+ORDER BY giorno_consegna DESC;
+
     ";
 
     try {
-        // Preparazione e esecuzione della query
+
         $stmt = $db->prepare($query);
-        $stmt->bindParam(':days', $days, PDO::PARAM_INT);
+        $stmt->bindParam(':days', $days);
         $stmt->execute();
 
-        // Calcolo delle consegne totali e per giorno utilizzando FETCH_OBJ
-        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+
+        while ($row = $stmt->fetch()) {
             $giorno = $row->giorno_consegna;
             $numeroConsegne = $row->numero_consegne;
             $consegneTotali += $numeroConsegne;
@@ -40,20 +40,19 @@ if ($days > 0) {
         $errorMessage = "Errore durante il caricamento dei dati: " . $e->getMessage();
     }
 }
-
 ?>
 
 <div class="container mt-5">
     <h1 class="text-primary"><strong>Ricerca Consegne Recenti</strong></h1>
     <p class="lead">Inserisci il numero di giorni per visualizzare il numero di plichi consegnati.</p>
 
-    <!-- Form per l'inserimento dei giorni -->
-    <form method="POST" class="mb-4">
+    <!-- Form con GET -->
+    <form method="GET" class="mb-4">
         <div class="form-group">
             <label for="days">Numero di giorni:</label>
-            <input type="number" name="days" id="days" class="form-control" value="<?= $days ?>" min="1" required>
+            <input type="number" name="days" id="days" class="form-control" value="<?= $days ?>" min="0" required>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Cerca</button>
+        <button type="submit" class="btn btn-dark mt-2"><i class="bi bi-search"></i> Cerca</button>
     </form>
 
     <?php if (isset($errorMessage)) { ?>
@@ -74,12 +73,15 @@ if ($days > 0) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($consegnePerGiorno as $giorno => $numeroConsegne) { ?>
-                    <tr>
-                        <td><?= date('d/m/Y', strtotime($giorno)) ?></td>
-                        <td><?= $numeroConsegne ?></td>
-                    </tr>
-                <?php } ?>
+                <?php if (empty($consegnePerGiorno)) { ?>
+                    <tr><td colspan="2">Nessuna consegna trovata per i giorni selezionati.</td></tr>
+                <?php } else {
+                    foreach ($consegnePerGiorno as $giorno => $numeroConsegne) { ?>
+                        <tr>
+                            <td><?= date('d/m/Y', strtotime($giorno)) ?></td>
+                            <td><?= $numeroConsegne ?></td>
+                        </tr>
+                    <?php } } ?>
                 </tbody>
             </table>
         </div>
