@@ -74,6 +74,7 @@ function sendMailInfo($to, $subject, $body) {
         <h2><strong>I nostri Servizi</strong></h2>
         <p class="lead">Consulta tutti i nostri servizi.</p>
         <div class="accordion accordion-flush mt-3" id="accordionFlushExample">
+
             <!-- Servizio 1: Gestione delle spedizioni -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -83,7 +84,7 @@ function sendMailInfo($to, $subject, $body) {
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body fs-5 lh-lg text-muted">
-                        Gestisci facilmente le spedizioni dei tuoi plichi con il nostro sistema avanzato di tracciamento e registrazione.
+                        Utilizza la nostra interfaccia intuitiva per inserire, modificare e monitorare ogni fase della spedizione, dalla registrazione iniziale alla consegna finale, con notifiche in tempo reale e aggiornamenti costanti.
                     </div>
                 </div>
             </div>
@@ -97,7 +98,7 @@ function sendMailInfo($to, $subject, $body) {
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body fs-5 lh-lg text-muted">
-                        Monitora il percorso del tuo plico in tempo reale dal momento della consegna fino al ritiro da parte del destinatario.
+                        Segui in tempo reale il percorso del tuo plico, dal momento in cui lascia la nostra sede fino al ritiro da parte del destinatario, grazie a un sistema di tracking che fornisce aggiornamenti dettagliati su ogni tappa del viaggio.
                     </div>
                 </div>
             </div>
@@ -111,7 +112,7 @@ function sendMailInfo($to, $subject, $body) {
                 </h2>
                 <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body fs-5 lh-lg text-muted">
-                        Accedi a una dashboard intuitiva per monitorare lo stato delle spedizioni e gestire tutte le operazioni in modo efficiente.
+                        Visualizza una dashboard centralizzata e interattiva che offre statistiche, grafici e report sullo stato di tutte le spedizioni, facilitando la gestione operativa e la risoluzione tempestiva di eventuali criticità.
                     </div>
                 </div>
             </div>
@@ -125,12 +126,12 @@ function sendMailInfo($to, $subject, $body) {
                 </h2>
                 <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body fs-5 lh-lg text-muted">
-                        Inserisci il codice del tuo plico e scopri immediatamente se è in partenza, in transito o consegnato.
+                        Inserisci il codice identificativo del tuo plico e ricevi in pochi secondi informazioni dettagliate sullo stato attuale, che ti indicherà se il plico è in partenza, in transito oppure già consegnato, mostrando anche le tappe già completate.
                     </div>
                 </div>
             </div>
 
-            <!-- Servizio 5: Ricerca Consegne -->
+            <!-- Servizio 5: Ricerca Consegne per Periodo -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
@@ -139,12 +140,14 @@ function sendMailInfo($to, $subject, $body) {
                 </h2>
                 <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body fs-5 lh-lg text-muted">
-                        Controlla quante consegne sono state effettuate negli ultimi N giorni con statistiche dettagliate.
+                        Consulta il numero di consegne effettuate in un intervallo di tempo specificato (ultimi N giorni), visualizzando il totale e la distribuzione giornaliera per analizzare l'andamento delle operazioni e pianificare al meglio le attività future.
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+
 </div>
 
 <!-- Sezione Form di Contatto -->

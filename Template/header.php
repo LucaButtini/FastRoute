@@ -84,7 +84,8 @@ $page = basename($_SERVER["SCRIPT_NAME"]);
 </nav>
 
 <div class="container mt-5 text-center rounded-4 flex-grow-1"
-     style="background-color: <?= ($bgColor == 'black') ? 'darkgray' : (($bgColor == 'grey') ? 'lightgray' : 'white') ?>;
+     style="background-color: <?= ($bgColor == 'black') ? '#2b2b2b' : (($bgColor == 'grey') ? 'lightgray' : 'white') ?>;
              color: <?= ($bgColor == 'black') ? 'white' : 'black' ?>;">
+
 
 

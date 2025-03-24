@@ -30,7 +30,6 @@ try {
 }
 ?>
 
-<div class="container mt-5 rounded-4 p-5 bg-white">
     <div class="text-center pt-3">
         <h1 class="text-primary"><strong>Elenco Destinatari</strong></h1>
         <p class="lead">Visualizza l'elenco completo dei destinatari registrati:</p>
@@ -50,7 +49,6 @@ try {
             </tbody>
         </table>
     </div>
-</div>
 
 <?php
 require './Template/footer.php';
